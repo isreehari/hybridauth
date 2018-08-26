@@ -298,7 +298,16 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
         try {
             $this->authenticateCheckError();
 
-            $code = filter_input(INPUT_GET, 'code');
+            //$code = filter_input(INPUT_GET, 'code');
+
+            
+    
+            if(isset($_GET['code']))
+                $code = $_GET['code']; //filter_input(INPUT_GET, 'code');
+                else
+                $code = NULL;
+
+        
 
             if (empty($code)) {
                 $this->authenticateBegin();
@@ -367,8 +376,18 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             [HttpClient\Util::getCurrentUrl(true)]
         );
 
-        $state = filter_input(INPUT_GET, 'state');
-        $code = filter_input(INPUT_GET, 'code');
+       // $state = filter_input(INPUT_GET, 'state');
+       // $code = filter_input(INPUT_GET, 'code');
+
+        if(isset($_GET['state']))
+        $state = $_GET['state']; //filter_input(INPUT_GET, 'code');
+        else
+        $state = NULL;
+
+        if(isset($_GET['code']))
+            $code = $_GET['code']; //filter_input(INPUT_GET, 'code');
+            else
+            $code = NULL;
 
         /**
         * Authorization Request State
