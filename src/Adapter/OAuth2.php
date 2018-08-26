@@ -305,7 +305,7 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
             if(isset($_GET['code']))
                 $code = $_GET['code']; //filter_input(INPUT_GET, 'code');
                 else
-                $code = NULL;
+                $code = '';
 
         
 
@@ -382,12 +382,12 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
         if(isset($_GET['state']))
         $state = $_GET['state']; //filter_input(INPUT_GET, 'code');
         else
-        $state = NULL;
+        $state = '';
 
         if(isset($_GET['code']))
             $code = $_GET['code']; //filter_input(INPUT_GET, 'code');
             else
-            $code = NULL;
+            $code = '';
 
         /**
         * Authorization Request State
