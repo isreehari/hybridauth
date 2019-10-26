@@ -2,7 +2,7 @@
 /*!
 * Hybridauth
 * https://hybridauth.github.io | https://github.com/hybridauth/hybridauth
-*  (c) 2017 Hybridauth authors | https://hybridauth.github.io/license.html
+*  (c) 2019 Hybridauth authors | https://hybridauth.github.io/license.html
 */
 
 namespace Hybridauth\Provider;
@@ -13,52 +13,53 @@ use Hybridauth\Data;
 use Hybridauth\User;
 
 /**
- * Blizzard Battle.net OAuth2 provider adapter.
+ * Amazon OAuth2 provider adapter.
  */
-class Blizzard extends OAuth2
+class Amazon extends OAuth2
 {
     /**
      * {@inheritdoc}
      */
-    public $scope = '';
+    public $scope = 'profile';
 
     /**
      * {@inheritdoc}
      */
-    protected $apiBaseUrl = 'https://us.battle.net/';
+    protected $apiBaseUrl = 'https://api.amazon.com/';
 
     /**
      * {@inheritdoc}
      */
-    protected $authorizeUrl = 'https://us.battle.net/oauth/authorize';
+    protected $authorizeUrl = 'https://www.amazon.com/ap/oa';
 
     /**
      * {@inheritdoc}
      */
-    protected $accessTokenUrl = 'https://us.battle.net/oauth/token';
+    protected $accessTokenUrl = 'https://api.amazon.com/auth/o2/token';
 
     /**
      * {@inheritdoc}
      */
-    protected $apiDocumentation = 'https://develop.battle.net/documentation';
+    protected $apiDocumentation = 'https://developer.amazon.com/docs/login-with-amazon/documentation-overview.html';
 
     /**
      * {@inheritdoc}
      */
     public function getUserProfile()
     {
-        $response = $this->apiRequest('oauth/userinfo');
+        $response = $this->apiRequest('user/profile');
 
         $data = new Data\Collection($response);
 
-        if (!$data->exists('id')) {
+        if (!$data->exists('user_id')) {
             throw new UnexpectedApiResponseException('Provider API returned an unexpected response.');
         }
 
         $userProfile = new User\Profile();
 
-        $userProfile->identifier  = $data->get('id');
-        $userProfile->displayName = $data->get('battletag') ?: $data->get('login');
+        $userProfile->identifier  = $data->get('user_id');
+        $userProfile->displayName = $data->get('name');
+        $userProfile->email       = $data->get('email');
 
         return $userProfile;
     }
