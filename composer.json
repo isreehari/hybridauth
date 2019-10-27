@@ -1,5 +1,5 @@
 {
-    "name": "splessons/hybridauthsp",
+    "name": "splessons/hybridauth",
     "description": "PHP Social Authentication Library",
     "keywords": ["oauth", "openid", "authentication", "authorization", "social", "api", "google", "facebook", "twitter"],
     "homepage": "https://hybridauth.github.io",
